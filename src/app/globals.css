@@ -263,8 +263,9 @@ body {
 }
 
 /* Code blocks */
-.prose pre {
-  background: var(--bg-subtle);
+.prose pre,
+.prose pre.shiki {
+  background: var(--bg-subtle) !important;
   border: 1px solid var(--border);
   padding: 1.25rem;
   overflow-x: auto;
@@ -274,12 +275,19 @@ body {
   border-radius: 0;
 }
 
-.prose pre code {
+.prose pre code,
+.prose pre.shiki code {
   background: none;
   color: var(--fg);
   padding: 0;
   font-size: inherit;
   font-variant-ligatures: none;
+}
+
+.shiki-wrapper pre.shiki {
+  margin: 0;
+  border: none;
+  background: var(--bg-subtle) !important;
 }
 
 /* ── Sidebar nav items ── */

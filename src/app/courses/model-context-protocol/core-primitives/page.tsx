@@ -188,7 +188,7 @@ flowchart LR
             <tr>
               <td><strong>Resource Template</strong></td>
               <td>Parameterized URI pattern</td>
-              <td><code>file:///{+path}</code></td>
+              <td><code>file:///&#123;+path&#125;</code></td>
             </tr>
           </tbody>
         </table>
