@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const navGroups = [
+const oidcNavGroups = [
   {
     label: 'Course',
     sections: [
@@ -40,13 +40,71 @@ const navGroups = [
   },
 ];
 
+const mcpNavGroups = [
+  {
+    label: 'Course',
+    sections: [
+      { href: '/courses/model-context-protocol', title: 'Overview', description: 'Course home' },
+    ],
+  },
+  {
+    label: 'Foundations',
+    sections: [
+      { href: '/courses/model-context-protocol/introduction', title: '1. Introduction', description: 'What is MCP?' },
+      { href: '/courses/model-context-protocol/architecture', title: '2. Architecture', description: 'Host, Client, Server' },
+      { href: '/courses/model-context-protocol/core-primitives', title: '3. Core Primitives', description: 'Tools, Resources, Prompts' },
+      { href: '/courses/model-context-protocol/transport-layer', title: '4. Transport Layer', description: 'STDIO and HTTP' },
+      { href: '/courses/model-context-protocol/protocol-lifecycle', title: '5. Protocol Lifecycle', description: 'Initialization' },
+    ],
+  },
+  {
+    label: 'Building',
+    sections: [
+      { href: '/courses/model-context-protocol/building-servers-python', title: '6. Servers (Python)', description: 'FastMCP implementation' },
+      { href: '/courses/model-context-protocol/building-servers-typescript', title: '7. Servers (TypeScript)', description: 'SDK implementation' },
+      { href: '/courses/model-context-protocol/building-clients', title: '8. Building Clients', description: 'Client implementation' },
+    ],
+  },
+  {
+    label: 'Advanced',
+    sections: [
+      { href: '/courses/model-context-protocol/client-features', title: '9. Client Features', description: 'Sampling, Elicitation' },
+      { href: '/courses/model-context-protocol/security', title: '10. Security', description: 'Attack patterns' },
+      { href: '/courses/model-context-protocol/real-world-servers', title: '11. Real-World Servers', description: 'Reference implementations' },
+      { href: '/courses/model-context-protocol/production-deployment', title: '12. Production', description: 'Deployment guide' },
+      { href: '/courses/model-context-protocol/authorization', title: '13. Authorization', description: 'OAuth integration' },
+      { href: '/courses/model-context-protocol/sdks', title: '14. SDKs', description: 'Language support' },
+    ],
+  },
+  {
+    label: 'Labs',
+    sections: [
+      { href: '/courses/model-context-protocol/labs/build-weather-server-python', title: 'Lab 1', description: 'Weather server (Python)' },
+      { href: '/courses/model-context-protocol/labs/build-weather-server-typescript', title: 'Lab 2', description: 'Weather server (TS)' },
+      { href: '/courses/model-context-protocol/labs/build-mcp-client', title: 'Lab 3', description: 'Build MCP client' },
+      { href: '/courses/model-context-protocol/labs/multi-server-integration', title: 'Lab 4', description: 'Multi-server integration' },
+      { href: '/courses/model-context-protocol/labs/capstone-project', title: 'Lab 5', description: 'Capstone project' },
+    ],
+  },
+];
+
 export default function Navigation() {
   const pathname = usePathname();
-
+  
+  const isOIDC = pathname?.startsWith('/courses/openid-connect');
+  const isMCP = pathname?.startsWith('/courses/model-context-protocol') || 
+                 pathname?.startsWith('/courses/mcp');
+  
+  const navGroups = isOIDC ? oidcNavGroups : isMCP ? mcpNavGroups : [];
+ 
   const isActive = (href: string) =>
     href === '/courses/openid-connect'
       ? pathname === href
       : pathname === href || pathname.startsWith(href + '/');
+
+  const brandLabel = isOIDC ? 'OIDC' : isMCP ? 'MCP' : 'Course';
+  const brandTitle = isOIDC ? 'Fundamentals' : isMCP ? 'Fundamentals' : '';
+  const brandDescription = isOIDC ? 'Complete Tutorial · 13 modules' : isMCP ? 'Complete Tutorial · 14 modules + 5 labs' : '';
 
   return (
     <nav
@@ -55,7 +113,7 @@ export default function Navigation() {
     >
       {/* Brand */}
       <div className="px-5 py-6" style={{ borderBottom: '1px solid var(--sidebar-border)' }}>
-        <Link href="/courses/openid-connect" className="block group">
+        <Link href={isOIDC ? '/courses/openid-connect' : '/courses/model-context-protocol'} className="block group">
           <div className="flex items-center gap-2 mb-1">
             <span
               className="w-2 h-2 rounded-full flex-shrink-0"
@@ -65,14 +123,14 @@ export default function Navigation() {
               className="text-xs font-mono font-bold tracking-widest uppercase"
               style={{ color: 'var(--sidebar-active-text)' }}
             >
-              OIDC
+              {brandLabel}
             </span>
           </div>
           <p className="font-heading text-base font-semibold" style={{ color: 'var(--sidebar-text)' }}>
-            Fundamentals
+            {brandTitle}
           </p>
           <p className="text-xs mt-0.5" style={{ color: 'var(--sidebar-muted)' }}>
-            Complete Tutorial · 13 modules
+            {brandDescription}
           </p>
         </Link>
       </div>
@@ -122,22 +180,22 @@ export default function Navigation() {
         </p>
         <div className="space-y-1">
           <a
-            href="https://openid.net/specs/openid-connect-core-1_0.html"
+            href={isOIDC ? 'https://openid.net/specs/openid-connect-core-1_0.html' : 'https://modelcontextprotocol.io'}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-ext-link block text-xs"
             style={{ color: 'var(--sidebar-muted)' }}
           >
-            OpenID Connect Core 1.0 ↗
+            {isOIDC ? 'OpenID Connect Core 1.0' : 'MCP Documentation'} ↗
           </a>
           <a
-            href="https://auth0.com/docs"
+            href={isOIDC ? 'https://auth0.com/docs' : 'https://github.com/modelcontextprotocol/servers'}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-ext-link block text-xs"
             style={{ color: 'var(--sidebar-muted)' }}
           >
-            Auth0 Documentation ↗
+            {isOIDC ? 'Auth0 Documentation' : 'MCP Reference Servers'} ↗
           </a>
         </div>
       </div>

@@ -6,10 +6,18 @@ import ReadingProgress from './ReadingProgress';
 
 export default function CourseLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  
   const isOpenIDCourse = pathname?.startsWith('/courses/openid-connect');
-  const isModulePage = pathname !== '/courses/openid-connect' && isOpenIDCourse;
+  const isMCPCourse = pathname?.startsWith('/courses/model-context-protocol') || 
+                      pathname?.startsWith('/courses/mcp');
+  
+  const isCourse = isOpenIDCourse || isMCPCourse;
+  const isLandingPage = pathname === '/courses/openid-connect' || 
+                        pathname === '/courses/model-context-protocol' ||
+                        pathname === '/courses/mcp';
+  const isModulePage = !isLandingPage && isCourse;
 
-  if (isOpenIDCourse) {
+  if (isCourse) {
     return (
       <div className="flex">
         {isModulePage && <ReadingProgress />}

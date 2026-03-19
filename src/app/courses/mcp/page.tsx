@@ -1,5 +1,6 @@
-import { metadata } from "./metadata";
+import { metadata } from "../model-context-protocol/metadata";
 import Badge, { difficultyVariant } from "@/components/Badge";
+import Link from "next/link";
 
 export default function MCPPage() {
   return (
@@ -35,9 +36,20 @@ export default function MCPPage() {
         className="p-8"
         style={{ background: 'var(--bg-subtle)', borderLeft: '3px solid var(--accent)' }}
       >
-        <p className="text-sm" style={{ color: 'var(--fg-muted)' }}>
-          This course is in development. Check back soon.
+        <h2 className="font-heading text-xl font-semibold mb-4" style={{ color: 'var(--fg)' }}>
+          Course Content
+        </h2>
+        <p className="text-sm mb-6" style={{ color: 'var(--fg-muted)' }}>
+          This course is now available. Click below to start learning.
         </p>
+        <Link
+          href="/courses/model-context-protocol/introduction"
+          className="cta-btn inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white"
+          style={{ background: 'var(--accent)' }}
+        >
+          Start Learning
+          <span aria-hidden>→</span>
+        </Link>
       </div>
     </div>
   );
