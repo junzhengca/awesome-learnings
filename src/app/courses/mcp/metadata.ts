@@ -1,7 +1,7 @@
 export const metadata = {
   name: "MCP (Model Context Protocol)",
   description:
-    "Understand the Model Context Protocol for building AI agent tool integrations, including protocol architecture, message formats, and implementation strategies.",
+    "Learn how to connect AI models to real-world tools using the Model Context Protocol — from protocol basics to building your own integrations.",
   lastUpdated: "2026-03-19",
   slug: "mcp",
   difficulty: "advanced",

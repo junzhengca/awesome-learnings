@@ -1,7 +1,7 @@
 export const metadata = {
   name: "OpenID Connect Fundamentals",
   description:
-    "Learn the basics of OpenID Connect protocol, including authentication flows, token validation, and practical implementation patterns.",
+    "Go from zero to production-ready auth. Covers the full OIDC protocol — flows, tokens, security, and real implementations in Node.js and Python.",
   lastUpdated: "2026-03-19",
   slug: "openid-connect",
   difficulty: "intermediate",
